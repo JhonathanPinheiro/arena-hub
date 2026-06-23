@@ -1,6 +1,16 @@
 {
   "Landing": {
-    "title": "Manage your tournaments with maximum performance",
-    "subtitle": "The definitive platform for competitive leagues."
+    "title": "Welcome to ArenaHub",
+    "subtitle": "The ultimate eSports tournament platform."
+  },
+  "Tournaments": {
+    "title": "Featured Tournaments",
+    "actionLabel": "View Details",
+    "actionOpenLabel": "Register Now",
+    "spotsLabel": "teams registered",
+    "items": {
+      "valorant": "ArenaHub Valorant Cup #1",
+      "lol": "League of Legends Pro League"
+    }
   }
 }

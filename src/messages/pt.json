@@ -1,6 +1,16 @@
 {
   "Landing": {
-    "title": "Gerencie seus torneios com desempenho máximo",
-    "subtitle": "A plataforma definitiva para ligas competitivas."
+    "title": "Bem-vindo ao ArenaHub",
+    "subtitle": "A maior plataforma de torneios de eSports do Brasil."
+  },
+  "Tournaments": {
+    "title": "Torneios em Destaque",
+    "actionLabel": "Ver Detalhes",
+    "actionOpenLabel": "Inscrever-se",
+    "spotsLabel": "times inscritos",
+    "items": {
+      "valorant": "Copa ArenaHub Valorant #1",
+      "lol": "Liga Principal League of Legends"
+    }
   }
 }
