@@ -1,5 +1,6 @@
-import { LanguageSwitcher } from "@/src/components/ui/LanguageSwitcher/language-switcher";
-import { TournamentCard } from "@/src/components/ui/TournamentCard/tournament-card";
+import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher/language-switcher";
+import { TournamentCard } from "@/components/ui/TournamentCard/tournament-card";
+import { MOCK_TOURNAMENTS } from "@/mocks/tournaments";
 import { useTranslations } from "next-intl";
 
 export default function HomePage() {
@@ -24,21 +25,20 @@ export default function HomePage() {
                 </h2>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <TournamentCard
-                        title={tTournaments('items.valorant')}
-                        date="28 de Junho, 19:00"
-                        spots={{ current: 12, total: 32 }}
-                        status="open"
-                        actionLabel={tTournaments('actionOpenLabel')}
-                    />
-
-                    <TournamentCard
-                        title={tTournaments('items.lol')}
-                        date="Hoje, 20:30"
-                        spots={{ current: 16, total: 16 }}
-                        status="ongoing"
-                        actionLabel={tTournaments('actionLabel')}
-                    />
+                    {MOCK_TOURNAMENTS.map((tournament) => (
+                        <TournamentCard
+                            key={tournament.id}
+                            title={tTournaments(tournament.titleKey as string)}
+                            date={tournament.date}
+                            spots={tournament.spots}
+                            status={tournament.status}
+                            actionLabel={
+                                tournament.status === 'open'
+                                    ? tTournaments('actionOpenLabel')
+                                    : tTournaments('actionLabel')
+                            }
+                        />
+                    ))}
                 </div>
             </section>
         </main>
