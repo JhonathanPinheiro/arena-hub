@@ -7,8 +7,21 @@ import { GameType, TournamentStatus } from '@/types/tournament';
 import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher/language-switcher';
 import { TournamentCard } from '@/components/ui/TournamentCard/tournament-card';
 import { Button } from '@/components/ui/Button/button';
+import { useRouter } from '@/i18n/routing';
+import { Select, SelectOption } from '@/components/ui/Select/select';
+
+const gameOptions: SelectOption[] = [
+    { value: 'valorant', label: 'Valorant' },
+    { value: 'lol', label: 'League of Legends' },
+    { value: 'cs2', label: 'Counter-Strike 2' },
+    { value: 'dota2', label: 'Dota 2' },
+    { value: 'rocket_league', label: 'Rocket League' },
+    { value: 'r6', label: 'Rainbow Six Siege' }
+];
 
 export default function HomePage() {
+    const router = useRouter();
+
     const tLanding = useTranslations('Landing');
     const tTournaments = useTranslations('Tournaments');
 
@@ -21,12 +34,13 @@ export default function HomePage() {
         return matchesGame && matchesStatus;
     });
 
+
     return (
-        <main className="min-h-screen bg-slate-950 text-white p-8 md:p-16 relative">
+        <main suppressHydrationWarning className="min-h-screen bg-slate-950 text-white p-8 md:p-16 relative">
             <LanguageSwitcher />
 
             <section className="max-w-4xl mx-auto mb-12 text-center md:text-left">
-                <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-blue-500 to-emerald-400 bg-clip-text text-transparent mb-4">
+                <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight bg-linear-to-r from-blue-500 to-emerald-400 bg-clip-text text-transparent mb-4">
                     {tLanding('title')}
                 </h1>
                 <p className="text-lg text-slate-400">
@@ -43,20 +57,13 @@ export default function HomePage() {
                     >
                         Todos os Jogos
                     </Button>
-                    <Button
-                        onClick={() => setActiveGame('valorant')}
-                        variant={activeGame === 'valorant' ? 'primary' : 'secondary'}
-                        size="sm"
-                    >
-                        Valorant
-                    </Button>
-                    <Button
-                        onClick={() => setActiveGame('lol')}
-                        variant={activeGame === 'lol' ? 'primary' : 'secondary'}
-                        size="sm"
-                    >
-                        League of Legends
-                    </Button>
+                    <Select
+                        options={gameOptions}
+                        value={activeGame}
+                        onChange={(val) => setActiveGame(val as GameType | null)}
+                        placeholder="Todos os Jogos"
+                        searchPlaceholder="Pesquisar jogo..."
+                    />
                 </div>
 
                 <div className="flex gap-2">
@@ -100,6 +107,7 @@ export default function HomePage() {
                                         ? tTournaments('actionOpenLabel')
                                         : tTournaments('actionLabel')
                                 }
+                                onActionClick={() => router.push(`/tournaments/${tournament.id}`)}
                             />
                         ))}
                     </div>
