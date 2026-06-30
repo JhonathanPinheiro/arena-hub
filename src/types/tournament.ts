@@ -15,3 +15,25 @@ export interface Tournament {
     };
     prizePool: string;
 }
+
+export interface MatchTeam {
+    id: string;
+    name: string;
+    score?: number;
+    isWinner?: boolean;
+}
+
+export interface Match {
+    id: string;
+    nextMatchId?: string | null;
+    tournamentRoundText: string;
+    state: 'SCHEDULED' | 'LIVE' | 'DONE';
+    teams: [MatchTeam, MatchTeam];
+}
+
+export interface TournamentBracket {
+    rounds: {
+        title: string;
+        matches: Match[];
+    }[];
+}

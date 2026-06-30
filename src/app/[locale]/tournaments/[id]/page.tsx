@@ -1,12 +1,13 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { MOCK_TOURNAMENTS } from '@/mocks/tournaments';
+import { MOCK_BRACKET_TRN01, MOCK_TOURNAMENTS } from '@/mocks/tournaments';
 import { Link } from '@/i18n/routing';
 import { Button } from '@/components/ui/Button/button';
 import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher/language-switcher';
 import { Badge } from '@/components/ui/Badge/badge';
 import { useParams } from 'next/navigation';
+import { TournamentBracket } from '@/components/ui/TournamentBracket/tournament-bracket';
 
 export default function TournamentDetailPage() {
   const { id } = useParams() as { id: string };
@@ -97,6 +98,15 @@ export default function TournamentDetailPage() {
             </Button>
           </div>
         </div>
+
+        <hr className="border-slate-800 my-12" />
+
+        <section className="max-w-5xl mx-auto">
+          <h2 className="text-2xl font-bold mb-8 bg-linear-to-r from-slate-100 to-slate-400 bg-clip-text text-transparent">
+            Chaves do Campeonato
+          </h2>
+          <TournamentBracket matches={MOCK_BRACKET_TRN01} />
+        </section>
       </div>
     </main>
   );
