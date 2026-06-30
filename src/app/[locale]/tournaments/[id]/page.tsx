@@ -8,12 +8,17 @@ import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher/language-swit
 import { Badge } from '@/components/ui/Badge/badge';
 import { useParams } from 'next/navigation';
 import { TournamentBracket } from '@/components/ui/TournamentBracket/tournament-bracket';
+import { useState } from 'react';
+import { RegistrationModal } from '@/components/ui/RegistrationModal/registration-modal';
+import { TeamRegistration } from '@/types/tournament';
 
 export default function TournamentDetailPage() {
   const { id } = useParams() as { id: string };
   const tTournaments = useTranslations('Tournaments');
 
   const tournament = MOCK_TOURNAMENTS.find((t) => t.id === id);
+
+  const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
 
   if (!tournament) {
     return (
@@ -30,6 +35,13 @@ export default function TournamentDetailPage() {
     open: { label: 'Inscrições Abertas', variant: 'success' as const },
     ongoing: { label: 'Em Andamento', variant: 'warning' as const },
     finished: { label: 'Finalizado', variant: 'neutral' as const },
+  };
+
+  const handleRegistrationSubmit = (data: TeamRegistration) => {
+    console.log('Dados recebidos com sucesso no Client:', data);
+    alert(`Inscrição do time "${data.teamName}" realizada com sucesso!`);
+    setIsRegisterModalOpen(false);
+    // Aqui no futuro faremos um fetch(POST) para a API
   };
 
   return (
@@ -93,6 +105,7 @@ export default function TournamentDetailPage() {
               className="w-full"
               variant={tournament.status === 'open' ? 'primary' : 'secondary'}
               disabled={tournament.status !== 'open'}
+              onClick={() => setIsRegisterModalOpen(true)}
             >
               {tournament.status === 'open' ? 'Registrar Meu Time' : 'Inscrições Encerradas'}
             </Button>
@@ -108,6 +121,12 @@ export default function TournamentDetailPage() {
           <TournamentBracket matches={MOCK_BRACKET_TRN01} />
         </section>
       </div>
+      <RegistrationModal
+        isOpen={isRegisterModalOpen}
+        onClose={() => setIsRegisterModalOpen(false)}
+        tournamentName="Valorant Masters João Pessoa" // Pode puxar do mock dinâmico depois
+        onSubmit={handleRegistrationSubmit}
+      />
     </main>
   );
 }

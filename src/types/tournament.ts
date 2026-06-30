@@ -37,3 +37,15 @@ export interface TournamentBracket {
         matches: Match[];
     }[];
 }
+
+export interface Player {
+    nickName: string,
+    gameId?: string,
+}
+
+export interface TeamRegistration {
+    teamName: string,
+    captainName: string,
+    captainEmail: string,
+    players: Player[],
+}
